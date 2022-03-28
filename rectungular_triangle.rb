@@ -1,4 +1,5 @@
 class Triangle
+	
 	def right(side1, side2, side3)
 		@side1, @side2, @side3 = [side1, side2, side3].sort
 
@@ -15,7 +16,7 @@ class Triangle
 				return "The Triangle is isosceles"
 			end
 		end
-		
+
 	end
 
 	def phitagorean?
