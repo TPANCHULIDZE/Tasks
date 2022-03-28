@@ -6,7 +6,7 @@ class Quadratic
 		@disc = find_disc
 
 		if @disc.negative?
-			return "No Roots"
+			return "Discriminant is #{@disc}, No Roots"
 		else
 			root1 = find_root(@disc, "+")
 			root2 = find_root(@disc, "-")
