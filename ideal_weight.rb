@@ -13,6 +13,6 @@ end
 human = Human.new
 
 name = gets.chomp
-height = gets.chomp
+height = gets.chomp.to_f
 
 puts human.ideal_weight(name, height)
