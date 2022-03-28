@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Triangle
-	def area(a, h)
-		return (a * h) / 2
-	end
+  def area(a, h)
+    (a * h) / 2
+  end
 end
 
 base = gets.chomp.to_f
