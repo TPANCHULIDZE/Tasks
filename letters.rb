@@ -13,4 +13,4 @@ class Letters
   end
 end
 
-p Letters.new.create_vowel('ajsdwideeuuookhll')
+
