@@ -1,23 +1,33 @@
-class Year 
- 
-  def self.create_hash
-    @year_hash = {
-      "January" => 31, 
-      "February" => 28,
-      "March" => 31,
-      "April" => 30,
-      "May" => 31,
-      "June" => 30,
-      "July" => 31,
-      "August" => 31,
-      "September" => 30,
-      "October" => 31,
-      "November" => 30,
-      "December" => 31
-    }
+# find months 
+
+require 'date'
+
+class Year
+  CONST = -1
+  def initialize(year)
+    @year = year
+    check_errors
+    @year_hash = {}
+  end
+
+  def create_hash
+    month_array = Date::MONTHNAMES
+    (1..12).each do |i|
+      @year_hash[month_array[i].to_s] = Date.new(@year, i, CONST).day
+    end
     @year_hash
   end
 
+  def check_errors
+    unless @year.is_a? Integer
+      raise ArgumentError.new('Year have to be integer')
+    end
+  end
 end
 
-Year.create_hash.each { |key, value| puts key if value == 30}
+year = gets.chomp.to_i
+
+year_hash = Year.new(year).create_hash
+
+year_hash.select { |key, value| puts key if value == 30 }
+ 
