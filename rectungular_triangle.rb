@@ -11,12 +11,12 @@ class Triangle
     case 
     when is_phitagorean? && is_isosceles?
       'The Triangle is Rectungular and isosceles'
-    when is_isosceles? 
-      'The Triangle is isosceles'
+    when is_equilateral? && is_triangle?
+      'The Triangle is equilateral and isosceles'
     when is_phitagorean?
       'The Triangle is Rectungular'
-    when is_equilateral?
-      'The Triangle is equilateral and isosceles'
+    when is_isosceles? && is_triangle?
+      'The Triangle isosceles'
     when is_triangle?
       'The is just Triangle'
     else
