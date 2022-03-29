@@ -1,32 +1,49 @@
-# frozen_string_literal: true
+# check triangle is rectangular, isosceles and equilateral
 
 class Triangle
   def right(side1, side2, side3)
     @side1, @side2, @side3 = [side1, side2, side3].sort
+    check_errors
+    answer
+  end
 
-    if phitagorean?
-      if isosceles?
-        'The Triangle is Rectungular and isosceles'
-      else
-        'The Triangle is Rectungular'
-      end
-    elsif equilateral?
-      'The Triangle is equilateral and isosceles'
-    elsif isosceles?
+  def answer
+    case 
+    when is_phitagorean? && is_isosceles?
+      'The Triangle is Rectungular and isosceles'
+    when is_isosceles? 
       'The Triangle is isosceles'
+    when is_phitagorean?
+      'The Triangle is Rectungular'
+    when is_equilateral?
+      'The Triangle is equilateral and isosceles'
+    when is_triangle?
+      'The is just Triangle'
+    else
+      'The is not a Triangle'
     end
   end
 
-  def phitagorean?
+  def is_phitagorean?
     @side3**2 == @side1**2 + @side2**2
   end
 
-  def isosceles?
+  def is_isosceles?
     @side2 == @side1 || @side2 == @side3
   end
 
-  def equilateral?
+  def is_equilateral?
     @side2 == @side1 && @side2 == @side3
+  end
+
+  def is_triangle?
+    @side1 + @side2 > @side3
+  end
+
+  def check_errors
+    unless (@side1.is_a? Float) && (@side2.is_a? Float) && (@side3.is_a? Float)
+      raise ArgumentError.new('Every side have to be Float')
+    end
   end
 end
 

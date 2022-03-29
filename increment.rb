@@ -1,7 +1,7 @@
-# frozen_string_literal: true
+# create increment array
 
 class Numbers
-  def back_fibo
+  def create_array
     array = []
     (10..100).step(5) do |i|
       array << i
@@ -10,4 +10,4 @@ class Numbers
   end
 end
 
-p Numbers.new.back_fibo
+p Numbers.new.create_array
