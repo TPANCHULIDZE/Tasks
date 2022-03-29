@@ -5,6 +5,7 @@ require 'date'
 class Days
   def initialize(year, month, day)
     @year, @month, @day = year, month, day
+    check_errors
   end
 
   def calculate
@@ -19,11 +20,11 @@ class Days
 end
   
 puts "Enter year"
-year = gets.chomp.to_i
+year = #gets.chomp.to_i
 puts "Enter month"
-month = gets.chomp.to_i
+month = 3#gets.chomp.to_i
 puts "Enter day"
-day = gets.chomp.to_i
+day = 2#gets.chomp.to_i
 
 day = Days.new(year, month, day)
 puts day.calculate
