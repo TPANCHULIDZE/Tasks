@@ -1,17 +1,16 @@
-# frozen_string_literal: true
-
-# letters
+# letters ordinal position
 
 class Letters
   CONT = 96
   def create_vowel
-    @vowel = {}
+    vowel = {}
     "aeiou".each_char do |i|
-      @vowel[i] = i.ord - CONT
+      vowel[i] = i.ord - CONT
     end
-    @vowel
+    vowel
   end
 end
 
 
 p Letters.new.create_vowel
+
