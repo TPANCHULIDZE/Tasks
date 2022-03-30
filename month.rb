@@ -3,11 +3,11 @@
 require 'date'
 
 DAYS_IN_MONTH = 30
+CONST = -1
+STARTIN_POINT = 1
+ENDING_POINT = 12
 
 class Year
-  CONST = -1
-  STARTIN_POINT = 1
-  ENDING_POINT = 12
   def initialize(year)
     @year = year
     check_errors
