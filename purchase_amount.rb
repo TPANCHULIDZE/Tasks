@@ -1,7 +1,6 @@
 # Purchase amount
 
 class Purchase
-
   def initialize
     @purchase_hash = {}
     @amount_hash = {}
