@@ -13,9 +13,17 @@ class Days
   end
 
   def check_errors
-    unless (@year.is_a? Integer) && (@month.is_a? Integer) && (@day.is_a? Integer)
+    if is_not_numeric? || is_zero? 
       raise ArgumentError.new('year, month and day have to Integer')
     end
+  end
+
+  def is_not_numeric?
+    !((@year.is_a? Ineger) && (@month.is_a? Integer) && (@day.is_a? Integer))
+  end
+
+  def is_zero?
+    @year.zero? || @month.zero? || @day.zero?
   end
 end
   
