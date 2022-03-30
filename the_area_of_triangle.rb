@@ -1,11 +1,15 @@
 # calculate triangle area
 
+HALF = 0.5
+
 class Triangle
-  CONST = 0.5
-  def area(base, height)
+  def initialize(base, height)
     @base, @height = base, height
+  end
+
+  def calculate_area(base, height)
     check_errors
-    base * height * CONST
+    base * height * HALF
   end
 
   def check_errors
@@ -18,4 +22,6 @@ end
 base = gets.chomp.to_f
 height = gets.chomp.to_f
 
-puts Triangle.new.area(base, height)
+triangle = Triangle.new(base, height)
+
+puts triangle.calculate_area
