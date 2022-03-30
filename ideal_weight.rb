@@ -1,11 +1,17 @@
 # calculate ideal weight
 
+IDEAL_WEIGHT = 110
+
 class Human
-  CONST = 110
+  def initialize(name, height)
+    @name = name
+    @height = height
+    
+  end
+
   def ideal_weight(name, height)
-    @name, @height = name, height
-    weight = height - CONST
     check_errors
+    weight = height - IDEAL_WEIGHT
     unless weight.negative?
       "Hello #{name}, your height is #{height} and your optimal weight is #{weight}"
     else
@@ -20,9 +26,11 @@ class Human
   end
 end
 
-human = Human.new
+
 
 name = gets.chomp
 height = gets.chomp.to_f
 
-puts human.ideal_weight(name, height)
+human = Human.new(name, height)
+
+puts human.ideal_weight
