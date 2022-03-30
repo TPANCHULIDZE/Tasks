@@ -1,8 +1,9 @@
 # Fibonacci numbers
 
+START_POINT = 2
+END_POINT = 100
+
 class Fibonacci
-  START_POINT = 2
-  END_POINT = 100
   def create_fibonacci
     fibo = []
     fibo[0] = 0
