@@ -1,7 +1,8 @@
 # letters ordinal position
 
+CONT = 96
+
 class Letters
-  CONT = 96
   def create_vowel
     vowel = {}
     "aeiou".each_char do |i|
