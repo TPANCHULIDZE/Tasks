@@ -1,10 +1,14 @@
 # quadratic equation, calculate roots and discriminant
 
+DISC_CONST = 4
+TWO = 2
+
 class Quadratic
-  DISC_CONST = 4
-  TWO = 2
-  def equation(first, second, third)
+  def initialize(first, second, third)
     @first, @second, @third = first, second, third
+  end
+
+  def equation
     check_errors
     answer
   end
@@ -53,5 +57,5 @@ first = gets.chomp.to_f
 second = gets.chomp.to_f
 third = gets.chomp.to_f
 
-quadratic = Quadratic.new
-puts quadratic.equation(first, second, third)
+quadratic = Quadratic.new(first, second, third)
+puts quadratic.equation
