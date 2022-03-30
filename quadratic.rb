@@ -2,7 +2,7 @@
 
 class Quadratic
   DISC_CONST = 4
-  HALF = 2
+  TWO = 2
   def equation(first, second, third)
     @first, @second, @third = first, second, third
     check_errors
@@ -29,7 +29,7 @@ class Quadratic
   end
 
   def find_root(disc, operation)
-    -@second.send(operation, Math.sqrt(disc)) / (HALF * @first)
+    -@second.send(operation, Math.sqrt(disc)) / (TWO * @first)
   end
 
   def check_errors
