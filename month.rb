@@ -2,8 +2,12 @@
 
 require 'date'
 
+DAYS_IN_MONTH = 30
+
 class Year
   CONST = -1
+  STARTIN_POINT = 1
+  ENDING_POINT = 12
   def initialize(year)
     @year = year
     check_errors
@@ -12,14 +16,14 @@ class Year
 
   def create_hash
     month_array = Date::MONTHNAMES
-    (1..12).each do |i|
+    (STARTIN_POINT..ENDING_POINT).each do |i|
       @year_hash[month_array[i].to_s] = Date.new(@year, i, CONST).day
     end
     @year_hash
   end
 
   def check_errors
-    unless @year.is_a? Integer
+    if !(@year.is_a? Integer) || @year.zero?
       raise ArgumentError.new('Year have to be integer')
     end
   end
@@ -29,5 +33,5 @@ year = gets.chomp.to_i
 
 year_hash = Year.new(year).create_hash
 
-year_hash.select { |key, value| puts key if value == 30 }
+year_hash.each { |key, value| puts key if value == DAYS_IN_MONTH }
  
