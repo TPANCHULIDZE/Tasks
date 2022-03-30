@@ -11,12 +11,12 @@ class Triangle
     case 
     when is_phitagorean? && is_isosceles?
       'The Triangle is Rectungular and isosceles'
-    when is_isosceles? 
-      'The Triangle is isosceles'
+    when is_equilateral? && is_triangle?
+      'The Triangle is equilateral and isosceles'
     when is_phitagorean?
       'The Triangle is Rectungular'
-    when is_equilateral?
-      'The Triangle is equilateral and isosceles'
+    when is_isosceles? && is_triangle?
+      'The Triangle isosceles'
     when is_triangle?
       'The is just Triangle'
     else
@@ -41,9 +41,17 @@ class Triangle
   end
 
   def check_errors
-    unless (@side1.is_a? Float) && (@side2.is_a? Float) && (@side3.is_a? Float)
-      raise ArgumentError.new('Every side have to be Float')
+    if is_sides_not_numeric? || is_sides_zero? 
+      raise ArgumentError.new('Every side have to be Numeric')
     end
+  end
+
+  def is_sides_not_numeric?
+    !((@side1.is_a? Numeric) && (@side2.is_a? Numeric) && (@side3.is_a? Numeric))
+  end
+
+  def is_sides_zero?
+    @side1.zero? || @side2.zero? || @side3.zero?
   end
 end
 
