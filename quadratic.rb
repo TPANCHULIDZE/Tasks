@@ -1,8 +1,8 @@
 # quadratic equation, calculate roots and discriminant
 
 class Quadratic
-  CONST = 4
-  CONST1 = 2
+  DISC_CONST = 4
+  HALF = 2
   def equation(first, second, third)
     @first, @second, @third = first, second, third
     check_errors
@@ -25,17 +25,25 @@ class Quadratic
   end
 
   def find_disc
-    @second**2 - CONST * @first * @third
+    @second**2 - DISC_CONST * @first * @third
   end
 
   def find_root(disc, operation)
-    -@second.send(operation, Math.sqrt(disc)) / (CONST1 * @first)
+    -@second.send(operation, Math.sqrt(disc)) / (HALF * @first)
   end
 
   def check_errors
-    unless (@first.is_a? Float) && (@second.is_a? Float) && (@third.is_a? Float)
-      raise ArgumentError.new('Every coefficient have to be Float')
+    if is_coefficient_not_numeric? || is_coefficient_zero?
+      raise ArgumentError.new('Every side have to be Numeric')
     end
+  end
+
+  def is_coefficient_not_numeric?
+    !((@first.is_a? Numeric) && (@second.is_a? Numeric) && (@third.is_a? Numeric))
+  end
+
+  def is_coefficient_zero?
+    @first.zero? || @second.zero? || @third.zero?
   end
 end
 
