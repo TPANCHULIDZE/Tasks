@@ -19,7 +19,7 @@ class Days
   end
 
   def is_not_numeric?
-    !((@year.is_a? Ineger) && (@month.is_a? Integer) && (@day.is_a? Integer))
+    !((@year.is_a? Integer) && (@month.is_a? Integer) && (@day.is_a? Integer))
   end
 
   def is_zero?
