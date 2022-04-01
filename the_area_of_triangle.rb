@@ -13,13 +13,14 @@ class Triangle
   end
 
   def check_errors
-    unless (@base.is_a? Float) && (@height.is_a? Float) && is_not_zero?
-      raise ArgumentError.new('base and height have to be Float')
+    if is_zero?
+      warn "base and height must be positive number"
+      exit 1
     end
   end
 
-  def is_not_zero?
-    !(@base.zero? && @height.zero?)
+  def is_zero?
+    @base.zero? || @height.zero?
   end
 end
 
