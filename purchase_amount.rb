@@ -8,7 +8,7 @@ class Purchase
   
   def create_purchase
     loop do 
-      puts "Enter product name"
+      puts "Enter product name. If you want end, please enter stop"
       name = gets.chomp
       if name == "stop"
         break
@@ -18,7 +18,6 @@ class Purchase
       puts "Enter product quantity"
       quantity = gets.chomp.to_f
 
-      check_errors(price, quantity)
       @purchase_hash[name] = {price: price, quantity: quantity}
     end
   end
