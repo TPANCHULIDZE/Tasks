@@ -19,7 +19,7 @@ class Human
   end
 
   def check_errors
-    unless @height.is_a? Float 
+    if @height.zero? 
       raise ArgumentError.new('height have to be Float')
     end
   end
@@ -33,3 +33,5 @@ height = gets.chomp.to_f
 human = Human.new(name, height)
 
 puts human.ideal_weight
+
+
