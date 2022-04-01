@@ -9,7 +9,7 @@ class Human
     
   end
 
-  def ideal_weight(name, height)
+  def ideal_weight
     check_errors
     weight = height - IDEAL_WEIGHT
     unless weight.negative?
