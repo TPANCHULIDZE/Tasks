@@ -60,3 +60,5 @@ side2 = gets.chomp.to_f
 side3 = gets.chomp.to_f
 
 puts Triangle.new.right(side1, side2, side3)
+
+
