@@ -20,7 +20,8 @@ class Human
 
   def check_errors
     if @height.zero? 
-      raise ArgumentError.new('height have to be Float')
+      warn "height must be positive number"
+      exit 1
     end
   end
 end
