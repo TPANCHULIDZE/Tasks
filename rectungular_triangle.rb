@@ -1,11 +1,18 @@
 # check triangle is rectangular, isosceles and equilateral
 
 class Triangle
-  def right(side1, side2, side3)
+  def initialize(side1, side2, side3)
     @side1, @side2, @side3 = [side1, side2, side3].sort
+  end
+  
+  def call
     check_errors
     answer
+  rescue => e
+    warn e
   end
+
+  private
 
   def answer
     case 
@@ -59,6 +66,7 @@ side1 = gets.chomp.to_f
 side2 = gets.chomp.to_f
 side3 = gets.chomp.to_f
 
-puts Triangle.new.right(side1, side2, side3)
+triangle = Triangle.new(side1, side2, side3)
+puts triangle.call
 
 
