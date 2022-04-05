@@ -7,15 +7,22 @@ class Triangle
     @base, @height = base, height
   end
 
-  def calculate_area
+  def call
     check_errors
+    calculate_area
+  rescue => e
+    warn e
+  end
+
+  private
+
+  def calculate_area
     @base * @height * HALF
   end
 
   def check_errors
     if is_zero?
-      warn "base and height must be positive number"
-      exit 1
+      raise ArgumentError.new("base and height must be positive number")
     end
   end
 
@@ -24,11 +31,13 @@ class Triangle
   end
 end
 
+puts "Enter triangle base"
 base = gets.chomp.to_f
+puts "Enter triangle height"
 height = gets.chomp.to_f
 
 triangle = Triangle.new(base, height)
 
-puts triangle.calculate_area
+puts triangle.call
 
 
