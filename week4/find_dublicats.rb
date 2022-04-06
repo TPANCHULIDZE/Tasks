@@ -36,7 +36,7 @@ class Numbers
       number = gets.chomp
       break if number == "stop"
       check_validate(number)
-      @numbers << number
+      @numbers << number.to_i
     rescue IntegerError => e
       puts e
     end
@@ -51,4 +51,4 @@ end
 
 numbers = Numbers.new.call
 
-puts FindDublicatesServise.new(numbers).call
+p FindDublicatesServise.new(numbers).call
