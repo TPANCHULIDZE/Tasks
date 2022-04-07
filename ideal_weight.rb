@@ -39,4 +39,3 @@ human = Human.new
 puts human.call
 
 
-
