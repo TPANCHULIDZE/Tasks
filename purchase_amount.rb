@@ -44,3 +44,5 @@ prc.create_purchase
 prc.create_amount
 prc.back_amount.each { |key, value| puts "#{key} total amount is #{value}"}
 puts "total amount of all product is #{prc.back_all_amount}"
+
+

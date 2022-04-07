@@ -15,3 +15,5 @@ class Numbers
 end
 
 p Numbers.new.create_array
+
+

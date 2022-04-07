@@ -51,3 +51,4 @@ quadratic = Quadratic.new
 puts quadratic.equation(first, second, third)
 
 
+
