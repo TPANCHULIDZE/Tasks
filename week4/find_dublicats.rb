@@ -6,13 +6,22 @@ class FindDublicatesServise
   end
 
   def call
+    count_numbers
     find_dublicates
   end
 
   private
 
   def find_dublicates
-    @dublicate_array.select { |number| @dublicate_array.count(number) > 1 }.uniq
+    @dublicate_array.select { |number| @numbers_quantity[number] > 1 }.uniq
+  end
+
+  def count_numbers
+    @numbers_quantity ||= {}
+    @dublicate_array.each do |number| 
+      @numbers_quantity[number] ||= 0
+      @numbers_quantity[number] += 1
+    end
   end
 end
 
