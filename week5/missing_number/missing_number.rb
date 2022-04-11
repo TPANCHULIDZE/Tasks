@@ -33,4 +33,4 @@ class NumbersArray
   end
 end
 
-#puts NumbersArray.new([4,2,3,5,6,7,8,9,10]).call
+puts NumbersArray.new([4,2,3,5,6,7,8,9,10]).call
