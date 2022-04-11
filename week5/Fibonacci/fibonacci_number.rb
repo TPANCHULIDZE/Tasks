@@ -19,6 +19,7 @@ class FibonacciNumber
   private 
 
   def calculate_sum
+    return 0 if @number.to_i == 1
     fibonacci_numbers.sum
   end
 
