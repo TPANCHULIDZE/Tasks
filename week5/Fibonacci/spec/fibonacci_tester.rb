@@ -1,3 +1,5 @@
+# fibonacci even numbers sum
+
 require '../fibonacci_number'
 require 'rspec/autorun'
 require 'faker'
@@ -12,29 +14,26 @@ NUMBER = 1000
 ONE_HUNDRED = 100
 
 describe FibonacciNumber do
-  negative_faker = Faker::Number.negative
-  string_faker = Faker::Alphanumeric.alphanumeric(number: NUMBER, min_alpha: MIN_ALPHA)
-  faker = Faker::Number.within(range: FIBONACCI_RANGE)
-
   TESTS_NUMBER.times do 
+    faker = Faker::Number.within(range: FIBONACCI_RANGE)
     it "check if fibonacci elements sum is correct" do
-      expect(FibonacciNumber.new(faker.to_s).call).to equal fibonacci_number_sum(faker)
+      expect(FibonacciNumber.new(faker.to_s).call).eql? fibonacci_number_sum(faker)
     end
   end
 
   SMALL_TESTS_NUMBER.times do 
+    negative_faker = Faker::Number.negative
+    string_faker = Faker::Alphanumeric.alphanumeric(number: NUMBER, min_alpha: MIN_ALPHA)
+    faker = Faker::Number.within(range: FIBONACCI_RANGE)
+
     it "negative number error" do
       expect(FibonacciNumber.new(negative_faker.to_s).call).eql? ERROR_MESSAGE 
     end
-  end
 
-  SMALL_TESTS_NUMBER.times do 
     it "alfabet input error" do 
       expect(FibonacciNumber.new(string_faker).call).eql? ERROR_MESSAGE
     end
-  end
 
-  SMALL_TESTS_NUMBER.times do 
     it "number is greaten than 100" do 
       expect(FibonacciNumber.new((ONE_HUNDRED + faker).to_s).call).eql? ERROR_MESSAGE
     end
