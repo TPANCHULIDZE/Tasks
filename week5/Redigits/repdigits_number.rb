@@ -4,14 +4,14 @@ class RepdigitsNumber
   class IntegerError < StandardError; end
 
   def initialize(number)
-    @number = number
+    @number ||= number
   end
 
   def call
     check_validate
     is_repdigit?
   rescue IntegerError => e
-    warn e
+    return e.message
   end
 
   private
@@ -27,7 +27,6 @@ class RepdigitsNumber
   end
 end
 
-puts "please enter positive integer"
-number = gets.chomp
-
-puts RepdigitsNumber.new(number).call
+# puts "please enter positive integer"
+# number = gets.chomp
+# puts RepdigitsNumber.new(number).call
