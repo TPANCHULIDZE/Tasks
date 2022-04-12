@@ -12,10 +12,6 @@ NUMBER = 1000
 ERROR_MESSAGE = "input value must be positive number"
 
 describe RepdigitsNumber do 
-  faker = Faker::Number.within(range: ONE_NUMBER_RANGE)
-  product_faker = Faker::Number.within(range:PRODUCT_RANGE)
-  string_faker = Faker::Alphanumeric.alphanumeric(number: NUMBER, min_alpha: MIN_ALPHA)
-
   TESTS_NUMBER.times do 
     faker = Faker::Number.within(range: ONE_NUMBER_RANGE)
     product_faker = Faker::Number.within(range:PRODUCT_RANGE)
