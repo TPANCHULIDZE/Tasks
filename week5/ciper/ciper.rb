@@ -14,20 +14,24 @@ class CaesarCiper
 
   def call 
     check_validate
-    converting_string
+    converting_string(:+)
   rescue IntegerError => e
     e.message
   end
 
+  def unencrypted_text
+    unencrypted_answer = converting_string(:-)
+  end
+
   private
 
-  def converting_string
+  def converting_string(operator)
     @answer = ""
     @ciper_string.each_char do |char|
       if LOWER_ALPHABET.include? char
-        @answer += find_new_index(LOWER_ALPHABET, char)
+        @answer += find_new_index(LOWER_ALPHABET, char, operator)
       elsif UPPER_ALPHABET.include? char
-        @answer += find_new_index(UPPER_ALPHABET, char)
+        @answer += find_new_index(UPPER_ALPHABET, char, operator)
       else
         @answer += char
       end
@@ -35,8 +39,8 @@ class CaesarCiper
     @answer
   end
 
-  def find_new_index(alfabet, char)
-    alfabet[(alfabet.index(char) + @ciper_number.to_i) % ALPHABET_SIZE]
+  def find_new_index(alfabet, char, operator)
+    alfabet[(alfabet.index(char).send(operator, @ciper_number.to_i)) % ALPHABET_SIZE]
   end
 
   def check_validate
@@ -48,6 +52,6 @@ end
 
 # string = gets.chomp
 # number = gets.chomp
-# puts CaesarCiper.new(string, number).call
+ #puts CaesarCiper.new(string= 'sdd', number = '26').call
 
 
