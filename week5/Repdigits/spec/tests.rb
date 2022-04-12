@@ -51,5 +51,6 @@ describe RepdigitsNumber do
   it "raise error when number is empty string" do 
     expect(RepdigitsNumber.new('').call).eql? "input value must be positive number"
   end
-
 end
+
+

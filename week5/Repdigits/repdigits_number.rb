@@ -30,3 +30,5 @@ end
 # puts "please enter positive integer"
 # number = gets.chomp
 # puts RepdigitsNumber.new(number).call
+
+
