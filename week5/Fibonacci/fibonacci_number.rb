@@ -1,6 +1,6 @@
 # calculate sum of even fibonacci numbers before N
 
-
+MAX_NUMBER = 100
 
 class FibonacciNumber
   class IntegerError < StandardError; end
@@ -13,21 +13,21 @@ class FibonacciNumber
     check_validate
     calculate_sum
   rescue IntegerError => e
-    warn e
+    e.message
   end
 
   private 
 
   def calculate_sum
     return 0 if @number.to_i == 1
-    fibonacci_numbers.sum
+    fibonacci_numbers
+    @fibonacci_numbers_array.inject(0) { |sum, number|  number.even? ? sum + number : sum }
   end
 
   def fibonacci_numbers
     @fibonacci_numbers_array ||= [0,1]
     quantity = @number.to_i - 2
     quantity.times { |_| @fibonacci_numbers_array << back_sum_last_two_element }
-    @fibonacci_numbers_array
   end
 
   def back_sum_last_two_element
@@ -41,12 +41,12 @@ class FibonacciNumber
   end
 
   def is_positive_integer_less_than_100?
-    @number.to_i.to_s == @number && @number.to_i.positive? && @number.to_i <= 100
+    @number.to_i.to_s == @number && @number.to_i.positive? && @number.to_i <= MAX_NUMBER
   end
 
 end
 
-puts "enter positive integer less than or equal 100"
-number = gets.chomp
+# puts "enter positive integer less than or equal 100"
+# number = gets.chomp
 
-puts FibonacciNumber.new(number).call
+# puts FibonacciNumber.new(number).call
