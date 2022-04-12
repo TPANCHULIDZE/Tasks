@@ -1,6 +1,7 @@
 # find missing number in array 
   
 INTERVAL = 1..10
+SIZE = 10
 
 class NumbersArray
   class IntegerError < StandardError; end
@@ -13,7 +14,7 @@ class NumbersArray
     check_validate
     find_missing_number
   rescue IntegerError => e
-    warn e
+    e.message
   end
 
   private
@@ -27,10 +28,10 @@ class NumbersArray
   end
 
   def check_validate
-   unless @numbers.all? { |number| (1..10).to_a.include? number}
+   unless @numbers.all? { |number| (INTERVAL).to_a.include? number} && @numbers.size < SIZE
     raise IntegerError, "every number in array must be integer between 1 and 10"
    end
   end
 end
 
-puts NumbersArray.new([4,2,3,5,6,7,8,9,10]).call
+# puts NumbersArray.new([4,2,3,5,6,7,8,9,10]).call
