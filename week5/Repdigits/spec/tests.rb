@@ -36,18 +36,22 @@ describe RepdigitsNumber do
   end
 
   SMALL_TESTS_NUMBER.times do 
+    faker = Faker::Number.within(range: ONE_NUMBER_RANGE)
+    product_faker = Faker::Number.within(range:PRODUCT_RANGE)
+    string_faker = Faker::Alphanumeric.alphanumeric(number: NUMBER, min_alpha: MIN_ALPHA)
+
     it "raise error when number is not positive integer" do 
-      expect(RepdigitsNumber.new(string_faker).call).eql? ERROR_MESSAGE
+      expect(RepdigitsNumber.new('-' + string_faker).call).to eq ERROR_MESSAGE
     end
 
     it "raise error when number is empty string" do 
       negative_num = '-' + faker.to_s * product_faker
-      expect(RepdigitsNumber.new(negative_num).call).eql? ERROR_MESSAGE
+      expect(RepdigitsNumber.new(negative_num).call).to eq ERROR_MESSAGE
     end
   end
 
   it "raise error when number is empty string" do 
-    expect(RepdigitsNumber.new('').call).eql? ERROR_MESSAGE
+    expect(RepdigitsNumber.new('').call).to eq ERROR_MESSAGE
   end
 end
 
