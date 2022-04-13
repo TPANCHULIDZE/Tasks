@@ -35,19 +35,19 @@ describe Dictionary do
   it "return error if directory is include only string" do
     dictionary = ["sdjn", "rmsd,n", 1, "esj,dn"]
     input = "s"
-    expect(Dictionary.new(input, dictionary).call).eql? ERROR_MESSAGE
+    expect(Dictionary.new(input, dictionary).call).to eq  ERROR_MESSAGE
   end
 
   it "return error if input string is not string" do 
     dictionary = ["sdjn", "rmsd,n", "esj,dn"]
     input = 1
-    expect(Dictionary.new(input, dictionary).call).eql? ERROR_MESSAGE
+    expect(Dictionary.new(input, dictionary).call).to eq ERROR_MESSAGE
   end
 
   it "return error when input string and directory contain integer" do 
     dictionary = ["sdjn", 1, "rmsd,n", "esj,dn"]
     input = 1
-    expect(Dictionary.new(input, dictionary).call).eql? ERROR_MESSAGE
+    expect(Dictionary.new(input, dictionary).call).to eq ERROR_MESSAGE
   end
 
   it "when input string is one symbol" do 
