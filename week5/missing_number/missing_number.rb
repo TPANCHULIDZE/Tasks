@@ -7,7 +7,7 @@ class NumbersArray
   class IntegerError < StandardError; end
 
   def initialize(numbers)
-    @numbers = numbers
+    @numbers = numbers.sort
   end
 
   def call
@@ -20,7 +20,7 @@ class NumbersArray
   private
 
   def find_missing_number
-    INTERVAL.each { |index| return index unless  @numbers.include? index}
+    INTERVAL.each { |index| return index + 1 unless  equal_number(index)}
   end
 
   def equal_number(index)

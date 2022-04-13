@@ -21,7 +21,7 @@ describe NumbersArray do
     last_number = numbers.pop
 
     it "check array is correct" do 
-      expect(NumbersArray.new(numbers).call).to equal last_number
+      expect(NumbersArray.new(numbers).call).to eq last_number
     end
 
     it "check array is contain symbols correct" do 
