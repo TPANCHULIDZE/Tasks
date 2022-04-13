@@ -25,11 +25,11 @@ describe NumbersArray do
     end
 
     it "check array is contain symbols correct" do 
-      expect(NumbersArray.new(faker_chars).call).eql? ERROR_MESSAGE
+      expect(NumbersArray.new(faker_chars).call).to eq ERROR_MESSAGE
     end
     
     it "check array size is not correct" do 
-      expect(NumbersArray.new(faker_size).call).eql? ERROR_MESSAGE
+      expect(NumbersArray.new(faker_size).call).to eq ERROR_MESSAGE
     end
   end
 end
