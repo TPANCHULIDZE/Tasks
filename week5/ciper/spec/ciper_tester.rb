@@ -21,7 +21,7 @@ describe CaesarCiper do
 
     it "input string and number is correct" do
       encrypted = CaesarCiper.new(faker_string,faker_number.to_s).call 
-      expect(encrypted).eql? CaesarCiper.new(encrypted, faker_number).unencrypted_text
+      expect(faker_string).to eq CaesarCiper.new(encrypted, faker_number).unencrypted_text
     end
   end
 
@@ -32,15 +32,15 @@ describe CaesarCiper do
     faker_float = Faker::Number.decimal_part(digits: TWO)
 
     it "negative number is not allowed" do 
-      expect(CaesarCiper.new(faker_string, faker_number.to_s).call).eql? ERROR_MESSAGE
+      expect(CaesarCiper.new(faker_string, faker_number.to_s).call).to eq ERROR_MESSAGE
     end
 
     it "float number is not allowed" do 
-      expect(CaesarCiper.new(faker_string, faker_float).call).eql? ERROR_MESSAGE
+      expect(CaesarCiper.new(faker_string, faker_float).call).to eq ERROR_MESSAGE
     end
 
     it "symbols as a number is not allowed" do 
-      expect(CaesarCiper.new(faker_string, faker_string).call).eql? ERROR_MESSAGE
+      expect(CaesarCiper.new(faker_string, faker_string).call).to eq ERROR_MESSAGE
     end
   end
 end

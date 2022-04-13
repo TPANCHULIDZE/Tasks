@@ -44,7 +44,7 @@ class CaesarCiper
   end
 
   def check_validate
-    return if @ciper_number.to_i.to_s == @ciper_number
+    return if @ciper_number.to_i.to_s == @ciper_number && !@ciper_number.to_i.negative?
 
     raise IntegerError, "ciper number must be integer"
   end
