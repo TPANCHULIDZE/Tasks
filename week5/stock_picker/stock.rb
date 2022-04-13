@@ -27,7 +27,7 @@ class Stock
         left_index = min_index
         difference = item - @stock[min_index]
       end
-      
+
       if item < @stock[min_index]
         min_index = index 
       end
@@ -40,5 +40,6 @@ class Stock
 
     raise StringError, "input valus must be positive number"
   end
-
 end
+
+
