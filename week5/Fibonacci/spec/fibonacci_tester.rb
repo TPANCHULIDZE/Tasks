@@ -17,7 +17,7 @@ describe FibonacciNumber do
   TESTS_NUMBER.times do 
     faker = Faker::Number.within(range: FIBONACCI_RANGE)
     it "check if fibonacci elements sum is correct" do
-      expect(FibonacciNumber.new(faker.to_s).call).eql? fibonacci_number_sum(faker)
+      expect(FibonacciNumber.new(faker.to_s).call).to eq fibonacci_number_sum(faker)
     end
   end
 
@@ -27,15 +27,15 @@ describe FibonacciNumber do
     faker = Faker::Number.within(range: FIBONACCI_RANGE)
 
     it "negative number error" do
-      expect(FibonacciNumber.new(negative_faker.to_s).call).eql? ERROR_MESSAGE 
+      expect(FibonacciNumber.new(negative_faker.to_s).call).to eq ERROR_MESSAGE 
     end
 
     it "alfabet input error" do 
-      expect(FibonacciNumber.new(string_faker).call).eql? ERROR_MESSAGE
+      expect(FibonacciNumber.new(string_faker).call).to eq ERROR_MESSAGE
     end
 
     it "number is greaten than 100" do 
-      expect(FibonacciNumber.new((ONE_HUNDRED + faker).to_s).call).eql? ERROR_MESSAGE
+      expect(FibonacciNumber.new((ONE_HUNDRED + faker).to_s).call).to eq ERROR_MESSAGE
     end
   end
 
@@ -55,3 +55,5 @@ describe FibonacciNumber do
     sum
   end
 end
+
+
