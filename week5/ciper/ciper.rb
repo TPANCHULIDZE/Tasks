@@ -26,17 +26,15 @@ class CaesarCiper
   private
 
   def converting_string(operator)
-    @answer = ""
-    @ciper_string.each_char do |char|
+    @ciper_string.split("").reduce("") do |answer, char|
       if LOWER_ALPHABET.include? char
-        @answer += find_new_index(LOWER_ALPHABET, char, operator)
+        answer += find_new_index(LOWER_ALPHABET, char, operator)
       elsif UPPER_ALPHABET.include? char
-        @answer += find_new_index(UPPER_ALPHABET, char, operator)
+        answer += find_new_index(UPPER_ALPHABET, char, operator)
       else
-        @answer += char
+        answer += char
       end
     end
-    @answer
   end
 
   def find_new_index(alfabet, char, operator)
@@ -52,6 +50,6 @@ end
 
 # string = gets.chomp
 # number = gets.chomp
- #puts CaesarCiper.new(string= 'sdd', number = '26').call
+ # puts CaesarCiper.new('sdd', '3').call
 
 
