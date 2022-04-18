@@ -37,7 +37,6 @@ class Bubble
 
     raise ArgumentError, ERROR_MESSAGE
   end
-
 end
 
 
