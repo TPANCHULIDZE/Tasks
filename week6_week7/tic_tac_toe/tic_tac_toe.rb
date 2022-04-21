@@ -3,7 +3,7 @@
 CHARS = ['X', 'O'].freeze
 SIZE_RANGE = (1..3).freeze
 CORD_RANGE = (0..2).to_a.freeze
-TWO_CORD = 2
+TWO_CORDINATES = 2
 MAX_CORD = 2
 MODULE = 2
 MATRIX_SIZE = 9
@@ -12,21 +12,19 @@ DECREASE = Proc.new { |element| element -= 1 }
 EMPTY_PLACE = '_'
 DRAW = "this is draw"
 NOT_ENOUGH_VALUES = "values must not be enough for find winner"
-NOT_IN_RANGE_OR_INTEGER = "input values must be in 1..3 range and integer"
+NOT_IN_RANGE_OR_NOT_INTEGER = "input values must be in 1..3 range and integer"
 NOT_IN_RANGE = "input values must be in 1..3 range"
 MARKED_PLACE = "this cordinate is already taken"
 
 class TicTacToe
-  attr_reader :board, :cordinates, :current_index, :free_space, :chars, :players
+  attr_reader :board, :current_index, :free_space, :chars, :players
 
-  def initialize(first_player, second_player, cordinates = nil)
+  def initialize(first_player = 'first', second_player = 'second')
     @players = [first_player,second_player]
-    @cordinates = cordinates
     @current_index = ZERO
     @current_cord = [ZERO,ZERO]
     @free_space = MATRIX_SIZE
     @winner_person = nil
-    @online_game = false
     @board = [
       ['_','_', '_'],
       ['_','_', '_'],
@@ -34,44 +32,26 @@ class TicTacToe
     ]
   end
 
-  def call
-    if cordinates.nil?
-      @online_game = true
-    end
-    start_game
-  end
-
-  private 
-
   def start_game
+    show_board
+
     while free_space.positive?
       player_turn
-      if @winner_person
-        return @winner_person
-      end
     end
-    if @online_game
-      puts DRAW
-    else
-      DRAW
-    end
+    
+    puts DRAW
   end
 
   def player_turn
-    if @online_game
-      puts "it's #{players[current_index]} turn"
-      @current_cord = gets.chomp().split(' ')
-    elsif @cordinates.empty?
-      return @winner_person = NOT_ENOUGH_VALUES
-    else
-      @current_cord = @cordinates.shift
-    end
+    puts "it's #{players[current_index]} turn"
+    @current_cord = gets.chomp().split(' ')
 
     bool = is_not_integer?
+    @current_cord.map!(&:to_i)
 
     if bool 
-      puts NOT_IN_RANGE_OR_INTEGER
-    elsif @current_cord.size != TWO_CORD
+      puts NOT_IN_RANGE_OR_NOT_INTEGER
+    elsif @current_cord.size != TWO_CORDINATES
       puts "#{players[current_index]} input two index"
     elsif cordinate_out_of_range?
       puts NOT_IN_RANGE
@@ -83,23 +63,15 @@ class TicTacToe
     end
   end
 
+  private
+
   def fill_board
     board[@current_cord.first][@current_cord.last] = CHARS[current_index]
-    @free_space -= 1
-    board.each { |element| p element }
     check_winner
-    @current_index = @current_index.next % MODULE
   end
 
   def is_not_integer?
-    return true unless (@current_cord.is_a? Array)
-
-    if @current_cord.all? { |element| element.respond_to?(:to_i) }
-      @current_cord.map!(&:to_i)
-      @current_cord.any? { |element| element.to_i.to_s != element.to_s }
-    else
-      true
-    end
+    @current_cord.any? { |element| element.to_i.to_s != element.to_s }
   end
 
   def place_is_already_taken?
@@ -136,22 +108,25 @@ class TicTacToe
   end
 
   def check_winner
+    show_board
+
     if check_row || check_column 
       winner
     elsif left_diagonal || right_diagonal
       winner
     else
-      #nothing
+      @free_space -= 1
+      @current_index = @current_index.next % MODULE
     end
   end
 
+  def show_board
+    board.each { |element| p element }
+  end
+
   def winner
-    if @online_game
-      puts "#{players[current_index]} is winner"
-      exit 1
-    else
-      @winner_person = players[current_index]
-    end
+    puts "#{players[current_index]} is winner"
+    exit 1
   end
 end 
 
@@ -160,8 +135,6 @@ end
 # puts "input second player name"
 # second_player = gets.chomp
 
-# array = [[1,2],[1,1],[2,2],[3,3],[3,2]]
-
-# puts TicTacToe.new(first_player, second_player).call
+# puts TicTacToe.new(first_player, second_player).start_game
 
 
