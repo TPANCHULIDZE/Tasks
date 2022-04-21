@@ -17,7 +17,7 @@ NOT_IN_RANGE = "input values must be in 1..3 range"
 MARKED_PLACE = "this cordinate is already taken"
 
 class TicTacToe
-  attr_reader :board, :current_index, :free_space, :chars, :players
+  attr_accessor :board, :current_index, :free_space, :players, :current_cord
 
   def initialize(first_player = 'first', second_player = 'second')
     @players = [first_player,second_player]
@@ -36,16 +36,20 @@ class TicTacToe
     show_board
 
     while free_space.positive?
+      exit 1 if @winner_person
       player_turn
     end
-    
+
     puts DRAW
   end
 
-  def player_turn
+  def player_input_cordinates
     puts "it's #{players[current_index]} turn"
     @current_cord = gets.chomp().split(' ')
+    player_turn
+  end
 
+  def player_turn
     bool = is_not_integer?
     @current_cord.map!(&:to_i)
 
@@ -53,12 +57,11 @@ class TicTacToe
       puts NOT_IN_RANGE_OR_NOT_INTEGER
     elsif @current_cord.size != TWO_CORDINATES
       puts "#{players[current_index]} input two index"
-    elsif cordinate_out_of_range?
+    elsif is_cordinate_out_of_range?
       puts NOT_IN_RANGE
     elsif place_is_already_taken?
       puts MARKED_PLACE
     else
-      @current_cord.map!(&DECREASE)
       fill_board
     end
   end
@@ -66,7 +69,9 @@ class TicTacToe
   private
 
   def fill_board
+    @current_cord.map!(&DECREASE)
     board[@current_cord.first][@current_cord.last] = CHARS[current_index]
+    show_board
     check_winner
   end
 
@@ -79,7 +84,7 @@ class TicTacToe
     board[cord.first][cord.last] != EMPTY_PLACE
   end
 
-  def cordinate_out_of_range?
+  def is_cordinate_out_of_range?
      is_first_cordinate_bad? || is_second_cordiate_bad?
   end
 
@@ -108,8 +113,6 @@ class TicTacToe
   end
 
   def check_winner
-    show_board
-
     if check_row || check_column 
       winner
     elsif left_diagonal || right_diagonal
@@ -125,8 +128,8 @@ class TicTacToe
   end
 
   def winner
-    puts "#{players[current_index]} is winner"
-    exit 1
+    @winner_person = players[current_index]
+    puts "#{@winner_person} is winner"
   end
 end 
 
