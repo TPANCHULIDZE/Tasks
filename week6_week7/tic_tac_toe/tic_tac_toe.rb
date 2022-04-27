@@ -37,7 +37,7 @@ class TicTacToe
 
     while free_space.positive?
       exit 1 if @winner_person
-      player_turn
+      player_input_cordinates
     end
 
     puts DRAW
