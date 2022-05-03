@@ -4,7 +4,6 @@ require_relative 'node'
 
 WORD_EXIST = "This word is already exist in prefix tree"
 ADD_NEW_WORD = "Add new word in prefix tree"
-HAVE_TO_BE_STRING = 'Input value must to be string'
 
 class PrefixTree
   attr_reader :dictionary
