@@ -73,6 +73,13 @@ describe PrefixTree do
 
         expect(tree.include?('string')).to be_truthy
       end
+
+      it "delete string which don't exist" do
+        tree.add('str')
+        tree.add('string')
+
+        expect(tree.delete('mmd')).to eq(NO_WORD)
+      end
     end
   end
 

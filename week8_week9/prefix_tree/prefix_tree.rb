@@ -1,9 +1,11 @@
 # create prefix tree
 
 require_relative 'node'
+require 'csv'
 
 WORD_EXIST = "This word is already exist in prefix tree"
 ADD_NEW_WORD = "Add new word in prefix tree"
+NO_WORD = "This word is not in tree"
 
 class PrefixTree
   attr_reader :dictionary
@@ -22,6 +24,7 @@ class PrefixTree
   end
 
   def delete(input_value)
+    return NO_WORD unless include?(input_value)
     decrease_size(input_value)
     delete_string_index(input_value)
     delete_nodes(input_value)
@@ -43,6 +46,14 @@ class PrefixTree
       return false unless node
     end
     write_appropriate_strings(node, input_value)
+  end
+
+  def fill_csv
+    CSV.open('dictionary.csv', 'wb') do |file|
+      @strings_indexs.each do |index|
+        file << [index, @dictionary[index]]
+      end
+    end
   end
 
   private
@@ -147,4 +158,19 @@ class PrefixTree
   end
 end
 
+# tree = PrefixTree.new
+
+# tree.add('string')
+# tree.add('strw')
+# tree.add('str')
+# tree.add('stm')
+# tree.delete('string')
+# tree.add('string')
+# tree.add('mmmd')
+# tree.add('dffd')
+# tree.delete('mmmd')
+# tree.delete('dd')
+# tree.add('dd')
+
+# tree.fill_csv
 
