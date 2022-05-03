@@ -220,6 +220,21 @@ describe Node do
     end
   end
 
+  describe "#not_end_point" do
+    subject(:node) { described_class.new('t') }
+
+    context "check not_end_point method" do
+      subject(:first_child_node) { node.create_child('m') }
+      subject(:second_child_node) { node.create_child('d') }
+      subject(:not_child_node) { described_class.new('d') }
+
+      it "when node is_end_point and and become not end point" do
+        node.not_end_point
+        expect(node.is_end_point).to be_falsey
+      end
+    end
+  end
+
   describe "#increment_size" do
     subject(:node) { described_class.new('t') }
 
@@ -244,7 +259,7 @@ describe Node do
   describe "#decrement_size" do
     subject(:node) { described_class.new('t') }
 
-    context "check increment_size method" do
+    context "check decrement_size method" do
       subject(:first_child_node) { node.create_child('m') }
       subject(:second_child_node) { node.create_child('d') }
       subject(:not_child_node) { described_class.new('d') }
@@ -261,6 +276,65 @@ describe Node do
         node.increment_size
         node.decrement_size
         expect(node.number_size).to eq(2)
+      end
+    end
+  end
+
+  describe "#add_strings_indexs" do
+    subject(:node) { described_class.new('t') }
+
+    context "check add_strings_indexs method" do
+      subject(:first_child_node) { node.create_child('m') }
+      subject(:second_child_node) { node.create_child('d') }
+      subject(:not_child_node) { described_class.new('d') }
+
+      it "add_strings_indexs 2 times" do
+        first_child_node.add_strings_indexs(10)
+        first_child_node.add_strings_indexs(12)
+        expect(first_child_node.strings_indexs).to eq([10, 12])
+      end
+
+      it "add_strings_indexs 4 times" do
+        node.add_strings_indexs(10)
+        node.add_strings_indexs(12)
+        node.add_strings_indexs(14)
+        node.add_strings_indexs(11)
+        expect(node.strings_indexs).to eq([10, 12, 14, 11])
+      end
+    end
+  end
+
+  describe "#delete_strings_indexs" do
+     subject(:node) { described_class.new('t') }
+
+    context "check delete_strings_indexs method" do
+      subject(:first_child_node) { node.create_child('m') }
+      subject(:second_child_node) { node.create_child('d') }
+      subject(:not_child_node) { described_class.new('d') }
+
+      it "delete strings indexs" do
+        first_child_node.add_strings_indexs(10)
+        first_child_node.add_strings_indexs(12)
+        node.add_strings_indexs(10)
+        node.add_strings_indexs(12)
+        node.add_strings_indexs(14)
+        node.add_strings_indexs(11)
+        node.delete_strings_indexs
+        expect(node.strings_indexs).to eq([14, 11])
+      end
+    end
+  end
+
+  describe "#delete_elemnt" do
+    subject(:node) { described_class.new('t') }
+
+    context "check delete_elemnt method" do
+      it "delete element which value is 5" do
+        node.add_strings_indexs(5)
+        node.add_strings_indexs(6)
+        node.add_strings_indexs(3)
+        node.delete_element(6)
+        expect(node.strings_indexs).to eq([5, 3])
       end
     end
   end
