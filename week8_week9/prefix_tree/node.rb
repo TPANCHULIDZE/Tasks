@@ -5,12 +5,17 @@ class Node
   
   @@nodes = []
 
-  def initialize(value)
+  def initialize(value = 'root')
     @value = value
     @children ||= []
     @number_size = 0
     @@nodes << self
     @is_end_point = false
+  end
+
+  def create_child(char)
+    @children << child = Node.new(char)
+    child
   end
 
   def delete_node
@@ -44,11 +49,6 @@ class Node
 
   def decrement_size
     @number_size -= 1
-  end
-
-  def create_child(char)
-    @children << child = Node.new(char)
-    child
   end
 end
 

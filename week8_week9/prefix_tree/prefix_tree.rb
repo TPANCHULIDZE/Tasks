@@ -8,7 +8,7 @@ HAVE_TO_BE_STRING = 'Input value must to be string'
 
 class PrefixTree
   def initialize()
-    @root = Node.new('root')
+    @root = Node.new
   end
 
   def add(input_value)
@@ -34,7 +34,7 @@ class PrefixTree
   end
 
   def list
-    Node.nodes.map(&:to_s)
+    Node.nodes
   end
 
   private
@@ -93,13 +93,13 @@ class PrefixTree
   end
 end
 
-# tree = PrefixTree.new
+tree = PrefixTree.new
 
-# puts tree.add('string')
-# tree.add('strw')
-# tree.add('str')
+puts tree.add('string')
+tree.add('strw')
+tree.add('str')
 
-# # puts tree.list
+puts tree.list
 
 # puts tree.include?("string")
 # puts tree.include?("strw")
