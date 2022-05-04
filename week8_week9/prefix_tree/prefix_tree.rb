@@ -56,10 +56,16 @@ class PrefixTree
       [key, value]
     end
     CSV.open('dictionary.csv', 'w') do |csv|
+      csv << %w(id string)
       strings.each do |string|
         csv << string
       end
     end 
+  end
+
+  def read_csv
+    strings = CSV.parse(File.read('dictionary.csv'), headers: true).by_col[1]
+    puts strings
   end
 
   private
@@ -197,4 +203,4 @@ end
 
 #  tree.fill_csv
 
-
+#  tree.read_csv
