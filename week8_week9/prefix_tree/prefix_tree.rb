@@ -24,18 +24,21 @@ class PrefixTree
   end
 
   def delete(input_value)
-    return NO_WORD unless include?(input_value)
+    return NO_WORD unless find(input_value)
+
     decrease_size(input_value)
     delete_string_index(input_value)
     delete_nodes(input_value)
   end
 
   def include?(input_value)
-    node = @root
-    input_value.each_char do |char|
-      node = find_node(node, char)
-      return false unless node
-    end
+    return false unless find_prefix_node(input_value)
+    true
+  end
+
+  def find(input_value)
+    node = find_prefix_node(input_value)
+    return false unless node
     node.is_end_point
   end
 
@@ -49,25 +52,34 @@ class PrefixTree
   end
 
   def fill_csv
-    CSV.open('dictionary.csv', 'wb') do |file|
-      @strings_indexs.each do |index|
-        file << [index, @dictionary[index]]
-      end
+    strings = @dictionary.map do |key, value| 
+      [key, value]
     end
+    CSV.open('dictionary.csv', 'w') do |csv|
+      strings.each do |string|
+        csv << string
+      end
+    end 
   end
 
   private
 
   def write_appropriate_strings(node, input_value)
-    indexs = input_value == '' ? @strings_indexs : node.strings_indexs
-    
+    if input_value == ''
+      puts dictionary.values
+    else
+      puts_answer(node.strings_indexs)
+    end
+  end
+
+  def puts_answer(indexs)
     indexs.each do |index|
       puts @dictionary[index]
     end
   end
 
   def add_good_word(input_value)
-    return WORD_EXIST if include?(input_value) 
+    return WORD_EXIST if find(input_value) 
     
     dictionary_filler(input_value)
     fill_tree(input_value)
@@ -76,7 +88,7 @@ class PrefixTree
 
   def dictionary_filler(input_value)
     add_in_dictionary(input_value)
-    add_indexs
+    # add_indexs
   end
 
   def add_in_dictionary(input_value)
@@ -85,9 +97,9 @@ class PrefixTree
     @dictionary[@number_of_input_strings] = input_value
   end
 
-  def add_indexs
-    @strings_indexs << @number_of_input_strings
-  end
+  # def add_indexs
+  #   @strings_indexs << @number_of_input_strings
+  # end
 
   def fill_tree(input_value)
     node = @root
@@ -108,6 +120,15 @@ class PrefixTree
     input_value.to_s
   end
 
+  def find_prefix_node(input_value)
+    node = @root
+    input_value.each_char do |char|
+      node = find_node(node, char)
+      return false unless node
+    end
+    node
+  end
+
   def create_or_find_node(node, char)
     if node.include?(char)
       node.find(char)
@@ -126,7 +147,9 @@ class PrefixTree
 
   def delete_string_index(input_value)
     index = @dictionary_by_strings[input_value]
-    @strings_indexs.delete_if { |element| element.eql? index }
+    # @strings_indexs.delete_if { |element| element.eql? index }
+    @dictionary.delete(index)
+    @dictionary_by_strings.delete(input_value)
   end
 
   def decrease_size(input_value)
@@ -158,7 +181,7 @@ class PrefixTree
   end
 end
 
-# tree = PrefixTree.new
+#  tree = PrefixTree.new
 
 # tree.add('string')
 # tree.add('strw')
@@ -172,5 +195,6 @@ end
 # tree.delete('dd')
 # tree.add('dd')
 
-# tree.fill_csv
+#  tree.fill_csv
+
 

@@ -51,7 +51,32 @@ describe PrefixTree do
         tree.add('str')
         tree.add('string')
 
-        expect(tree.include?('strin')).to be_falsey
+        expect(tree.include?('strin')).to be_truthy
+      end
+    end
+  end
+
+  describe "#find" do
+    context "check find method" do
+      it "find string" do
+        tree.add('str')
+        tree.add('string')
+
+        expect(tree.find('str')).to be_truthy
+      end
+
+      it "tree include string" do
+        tree.add('str')
+        tree.add('string')
+
+        expect(tree.find('string')).to be_truthy
+      end
+
+      it "tree don't include strin" do
+        tree.add('str')
+        tree.add('string')
+
+        expect(tree.find('strin')).to be_falsey
       end
     end
   end
@@ -63,7 +88,7 @@ describe PrefixTree do
         tree.add('string')
         tree.delete('str')
 
-        expect(tree.include?('str')).to be_falsey
+        expect(tree.find('str')).to be_falsey
       end
 
       it "delete string but other string stay" do
@@ -71,7 +96,7 @@ describe PrefixTree do
         tree.add('string')
         tree.delete('str')
 
-        expect(tree.include?('string')).to be_truthy
+        expect(tree.find('string')).to be_truthy
       end
 
       it "delete string which don't exist" do
