@@ -15,7 +15,6 @@ class PrefixTree
     @number_of_input_strings = 0
     @dictionary = {}
     @dictionary_by_strings = {}
-    @strings_indexs = []
   end
 
   def add(input_value)
@@ -51,28 +50,11 @@ class PrefixTree
     write_appropriate_strings(node, input_value)
   end
 
-  def fill_csv
-    strings = @dictionary.map do |key, value| 
-      [key, value]
-    end
-    CSV.open('dictionary.csv', 'w') do |csv|
-      csv << %w(id string)
-      strings.each do |string|
-        csv << string
-      end
-    end 
-  end
-
-  def read_csv
-    strings = CSV.parse(File.read('dictionary.csv'), headers: true).by_col[1]
-    puts strings
-  end
-
   private
 
   def write_appropriate_strings(node, input_value)
     if input_value == ''
-      puts dictionary.values
+      puts @dictionary.values
     else
       puts_answer(node.strings_indexs)
     end
@@ -102,10 +84,6 @@ class PrefixTree
     @dictionary_by_strings[input_value] = @number_of_input_strings
     @dictionary[@number_of_input_strings] = input_value
   end
-
-  # def add_indexs
-  #   @strings_indexs << @number_of_input_strings
-  # end
 
   def fill_tree(input_value)
     node = @root
@@ -153,7 +131,6 @@ class PrefixTree
 
   def delete_string_index(input_value)
     index = @dictionary_by_strings[input_value]
-    # @strings_indexs.delete_if { |element| element.eql? index }
     @dictionary.delete(index)
     @dictionary_by_strings.delete(input_value)
   end
@@ -203,4 +180,5 @@ end
 
 #  tree.fill_csv
 
-#  tree.read_csv
+# tree.list('')
+# tree.list('str')
