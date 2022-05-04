@@ -1,9 +1,13 @@
-#create node class
+# create node class
 
 class Node
   attr_reader :value, :number_size, :children, :is_end_point, :strings_indexs
-  
+
   @@nodes = []
+
+  def self.nodes
+    @@nodes
+  end
 
   def initialize(value = 'root')
     @value = value
@@ -21,10 +25,6 @@ class Node
 
   def delete_node
     @children.delete_if { |node| node.number_size.zero? }
-  end
-
-  def self.nodes
-    @@nodes
   end
 
   def to_s
@@ -70,10 +70,9 @@ class Node
     @strings_indexs.delete_if { |element| element.eql? value }
   end
 
+  private
+
   def erase_indexs(node)
-    if node.number_size.zero?
-      @strings_indexs -= node.strings_indexs
-    end
+    @strings_indexs -= node.strings_indexs if node.number_size.zero?
   end
 end
-

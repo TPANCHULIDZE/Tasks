@@ -1,4 +1,4 @@
-#create prefix tree tests
+# create prefix tree tests
 
 require '../prefix_tree'
 require 'rspec/autorun'
@@ -6,20 +6,20 @@ require 'rspec/autorun'
 describe PrefixTree do
   subject(:tree) { described_class.new }
 
-  describe "#add" do
-    context "check add string method" do
-      it "add string in tree" do
+  describe '#add' do
+    context 'check add string method' do
+      it 'add string in tree' do
         tree.add('string')
         tree.add('str')
 
-        expect(tree.dictionary.values).to eq(['string', 'str'])
+        expect(tree.dictionary.values).to eq(%w[string str])
       end
 
-      it "add int by converting string in tree" do
+      it 'add int by converting string in tree' do
         tree.add('1')
         tree.add('str')
 
-        expect(tree.dictionary.values).to eq(['1', 'str'])
+        expect(tree.dictionary.values).to eq(%w[1 str])
       end
 
       it "don't add same string twice" do
@@ -31,16 +31,16 @@ describe PrefixTree do
     end
   end
 
-  describe "#include?" do
-    context "tree include strings" do
-      it "tree include str" do
+  describe '#include?' do
+    context 'tree include strings' do
+      it 'tree include str' do
         tree.add('str')
         tree.add('string')
 
         expect(tree.include?('str')).to be_truthy
       end
 
-      it "tree include string" do
+      it 'tree include string' do
         tree.add('str')
         tree.add('string')
 
@@ -56,16 +56,16 @@ describe PrefixTree do
     end
   end
 
-  describe "#find" do
-    context "check find method" do
-      it "find string" do
+  describe '#find' do
+    context 'check find method' do
+      it 'find string' do
         tree.add('str')
         tree.add('string')
 
         expect(tree.find('str')).to be_truthy
       end
 
-      it "tree include string" do
+      it 'tree include string' do
         tree.add('str')
         tree.add('string')
 
@@ -81,9 +81,9 @@ describe PrefixTree do
     end
   end
 
-  describe "#delete" do
-    context "delete string from tree" do
-      it "delete string" do
+  describe '#delete' do
+    context 'delete string from tree' do
+      it 'delete string' do
         tree.add('str')
         tree.add('string')
         tree.delete('str')
@@ -91,7 +91,7 @@ describe PrefixTree do
         expect(tree.find('str')).to be_falsey
       end
 
-      it "delete string but other string stay" do
+      it 'delete string but other string stay' do
         tree.add('str')
         tree.add('string')
         tree.delete('str')
@@ -108,9 +108,9 @@ describe PrefixTree do
     end
   end
 
-  describe "#list" do
-    context "check list method" do
-      it "add some string and find list" do
+  describe '#list' do
+    context 'check list method' do
+      it 'add some string and find list' do
         tree.add('string')
         tree.add('strw')
         tree.add('str')
@@ -120,18 +120,18 @@ describe PrefixTree do
         expect { tree.list('str') }.to output(answer).to_stdout
       end
 
-      it "add and delete some string and find list" do
+      it 'add and delete some string and find list' do
         tree.add('string')
         tree.add('strw')
         tree.add('str')
         tree.add('stm')
         tree.delete('string')
         answer = "strw\nstr\n"
-        
+
         expect { tree.list('str') }.to output(answer).to_stdout
       end
 
-      it "add and delete, add some string and find list" do
+      it 'add and delete, add some string and find list' do
         tree.add('string')
         tree.add('strw')
         tree.add('str')
@@ -139,11 +139,11 @@ describe PrefixTree do
         tree.delete('string')
         tree.add('string')
         answer = "strw\nstr\nstring\n"
-        
+
         expect { tree.list('str') }.to output(answer).to_stdout
       end
 
-      it "puts every word when input noting" do
+      it 'puts every word when input noting' do
         tree.add('string')
         tree.add('strw')
         tree.add('str')
@@ -155,19 +155,17 @@ describe PrefixTree do
         expect { tree.list('') }.to output(answer).to_stdout
       end
 
-      it "puts nothing when input value is not in tree" do
+      it 'puts nothing when input value is not in tree' do
         tree.add('string')
         tree.add('strw')
         tree.add('str')
         tree.add('stm')
         tree.delete('string')
         tree.add('string')
-        answer = ""
+        answer = ''
 
         expect { tree.list('mm') }.to output(answer).to_stdout
       end
     end
   end
 end
-
-

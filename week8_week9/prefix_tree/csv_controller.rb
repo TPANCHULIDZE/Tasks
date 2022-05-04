@@ -8,15 +8,15 @@ class CsvController
   end
 
   def fill_csv
-    strings = @tree.dictionary.map do |key, value| 
+    strings = @tree.dictionary.map do |key, value|
       [key, value]
     end
     CSV.open('dictionary.csv', 'w') do |csv|
-      csv << %w(id name)
+      csv << %w[id name]
       strings.each do |string|
         csv << string
       end
-    end 
+    end
   end
 
   def read_csv
@@ -33,17 +33,14 @@ class CsvController
   end
 end
 
-tree = PrefixTree.new()
+tree = PrefixTree.new
 
 tree.add('dsbh')
-tree.add("mmss")
+tree.add('mmss')
 tree.delete('dsbh')
 tree.add('string')
-
 
 csv_controller = CsvController.new(tree)
 
 csv_controller.read_csv
 csv_controller.fill_csv
-
-

@@ -3,14 +3,14 @@
 require_relative 'node'
 require 'csv'
 
-WORD_EXIST = "This word is already exist in prefix tree"
-ADD_NEW_WORD = "Add new word in prefix tree"
-NO_WORD = "This word is not in tree"
+WORD_EXIST = 'This word is already exist in prefix tree'
+ADD_NEW_WORD = 'Add new word in prefix tree'
+NO_WORD = 'This word is not in tree'
 
 class PrefixTree
   attr_reader :dictionary
 
-  def initialize()
+  def initialize
     @root = Node.new
     @number_of_input_strings = 0
     @dictionary = {}
@@ -19,7 +19,7 @@ class PrefixTree
 
   def add(input_value)
     input_value = convert_to_string(input_value)
-    add_good_word(input_value.downcase)
+    add_word(input_value.downcase)
   end
 
   def delete(input_value)
@@ -31,13 +31,13 @@ class PrefixTree
   end
 
   def include?(input_value)
-    return false unless find_prefix_node(input_value)
-    true
+    find_prefix_node(input_value) ? true : false
   end
 
   def find(input_value)
     node = find_prefix_node(input_value)
     return false unless node
+
     node.is_end_point
   end
 
@@ -61,14 +61,12 @@ class PrefixTree
   end
 
   def puts_answer(indexs)
-    indexs.each do |index|
-      puts @dictionary[index]
-    end
+    indexs.each { |index| puts @dictionary[index] }
   end
 
-  def add_good_word(input_value)
-    return WORD_EXIST if find(input_value) 
-    
+  def add_word(input_value)
+    return WORD_EXIST if find(input_value)
+
     dictionary_filler(input_value)
     fill_tree(input_value)
     ADD_NEW_WORD
@@ -76,7 +74,6 @@ class PrefixTree
 
   def dictionary_filler(input_value)
     add_in_dictionary(input_value)
-    # add_indexs
   end
 
   def add_in_dictionary(input_value)
@@ -87,9 +84,7 @@ class PrefixTree
 
   def fill_tree(input_value)
     node = @root
-    input_value.each_char do |char|
-      node = back_new_node(node, char)
-    end
+    input_value.each_char  { |char| node = back_new_node(node, char) } 
     node.become_end_point
   end
 
@@ -122,11 +117,7 @@ class PrefixTree
   end
 
   def find_node(node, char)
-    if node.include?(char)
-      node.find(char)
-    else
-      false
-    end
+    node.include?(char) ? node.find(char) : false
   end
 
   def delete_string_index(input_value)
@@ -153,14 +144,15 @@ class PrefixTree
     node = @root
     input_value.each_char do |char|
       break unless node
-      node = make_changes(node, char)
+
+      delete_nodes_in_node_class(node)
+      node = node.find(char)
     end
   end
 
-  def make_changes(node, char)
+  def delete_nodes_in_node_class(node)
     node.delete_strings_indexs
     node.delete_node
-    node.find(char)
   end
 end
 
