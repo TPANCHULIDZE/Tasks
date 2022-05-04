@@ -3,8 +3,8 @@
 require_relative 'prefix_tree'
 
 class CsvController
-  def initialize()
-    @tree = PrefixTree.new()
+  def initialize(tree = PrefixTree.new)
+    @tree = tree
   end
 
   def fill_csv
@@ -33,8 +33,15 @@ class CsvController
   end
 end
 
+tree = PrefixTree.new()
 
-csv_controller = CsvController.new()
+tree.add('dsbh')
+tree.add("mmss")
+tree.delete('dsbh')
+tree.add('string')
+
+
+csv_controller = CsvController.new(tree)
 
 csv_controller.read_csv
 csv_controller.fill_csv
