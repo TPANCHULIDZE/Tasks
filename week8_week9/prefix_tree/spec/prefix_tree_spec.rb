@@ -4,54 +4,48 @@ require '../prefix_tree'
 require 'rspec/autorun'
 
 describe PrefixTree do
-  subject(:tree) { described_class.new }
-
   describe '#add' do
+    let(:trie) { described_class.new }
+
     context 'check add string method' do
       it 'add string in tree' do
-        tree.add('string')
-        tree.add('str')
+        %w(string str).each { |string| trie.add(string) }
 
-        expect(tree.dictionary.values).to eq(%w[string str])
+        expect(trie.dictionary.values).to eq(%w[string str])
       end
 
       it 'add int by converting string in tree' do
-        tree.add('1')
-        tree.add('str')
+        %w(1 str).each { |string| trie.add(string) }
 
-        expect(tree.dictionary.values).to eq(%w[1 str])
+        expect(trie.dictionary.values).to eq(%w[1 str])
       end
 
       it "don't add same string twice" do
-        tree.add('str')
-        tree.add('str')
+        %w(str str).each { |string| trie.add(string) }
 
-        expect(tree.dictionary.values).to eq(['str'])
+        expect(trie.dictionary.values).to eq(['str'])
       end
     end
+  end
+
+  before (:each) do
+    @tree = described_class.new
+    @tree.add('string')
+    @tree.add('str')
   end
 
   describe '#include?' do
     context 'tree include strings' do
       it 'tree include str' do
-        tree.add('str')
-        tree.add('string')
-
-        expect(tree.include?('str')).to be_truthy
+        expect(@tree.include?('str')).to be_truthy
       end
 
       it 'tree include string' do
-        tree.add('str')
-        tree.add('string')
-
-        expect(tree.include?('string')).to be_truthy
+        expect(@tree.include?('string')).to be_truthy
       end
 
       it "tree don't include strin" do
-        tree.add('str')
-        tree.add('string')
-
-        expect(tree.include?('strin')).to be_truthy
+        expect(@tree.include?('strin')).to be_truthy
       end
     end
   end
@@ -59,24 +53,15 @@ describe PrefixTree do
   describe '#find' do
     context 'check find method' do
       it 'find string' do
-        tree.add('str')
-        tree.add('string')
-
-        expect(tree.find('str')).to be_truthy
+        expect(@tree.find('str')).to be_truthy
       end
 
       it 'tree include string' do
-        tree.add('str')
-        tree.add('string')
-
-        expect(tree.find('string')).to be_truthy
+        expect(@tree.find('string')).to be_truthy
       end
 
       it "tree don't include strin" do
-        tree.add('str')
-        tree.add('string')
-
-        expect(tree.find('strin')).to be_falsey
+        expect(@tree.find('strin')).to be_falsey
       end
     end
   end
@@ -84,88 +69,71 @@ describe PrefixTree do
   describe '#delete' do
     context 'delete string from tree' do
       it 'delete string' do
-        tree.add('str')
-        tree.add('string')
-        tree.delete('str')
+        @tree.delete('str')
 
-        expect(tree.find('str')).to be_falsey
+        expect(@tree.find('str')).to be_falsey
       end
 
       it 'delete string but other string stay' do
-        tree.add('str')
-        tree.add('string')
-        tree.delete('str')
+        @tree.delete('str')
 
-        expect(tree.find('string')).to be_truthy
+        expect(@tree.find('string')).to be_truthy
       end
 
       it "delete string which don't exist" do
-        tree.add('str')
-        tree.add('string')
-
-        expect(tree.delete('mmd')).to eq(NO_WORD)
+        expect(@tree.delete('mmd')).to eq(NO_WORD)
       end
     end
   end
 
   describe '#list' do
+    before (:example) do
+      @tree = described_class.new()
+      @tree.add('string')
+      @tree.add('strw')
+      @tree.add('str')
+      @tree.add('stm')
+    end
+
     context 'check list method' do
       it 'add some string and find list' do
-        tree.add('string')
-        tree.add('strw')
-        tree.add('str')
-        tree.add('stm')
         answer = "string\nstrw\nstr\n"
 
-        expect { tree.list('str') }.to output(answer).to_stdout
+        expect { @tree.list('str') }.to output(answer).to_stdout
       end
 
       it 'add and delete some string and find list' do
-        tree.add('string')
-        tree.add('strw')
-        tree.add('str')
-        tree.add('stm')
-        tree.delete('string')
+        @tree.delete('string')
         answer = "strw\nstr\n"
 
-        expect { tree.list('str') }.to output(answer).to_stdout
+        expect { @tree.list('str') }.to output(answer).to_stdout
       end
 
       it 'add and delete, add some string and find list' do
-        tree.add('string')
-        tree.add('strw')
-        tree.add('str')
-        tree.add('stm')
-        tree.delete('string')
-        tree.add('string')
+        @tree.delete('string')
+        @tree.add('string')
         answer = "strw\nstr\nstring\n"
 
-        expect { tree.list('str') }.to output(answer).to_stdout
+        expect { @tree.list('str') }.to output(answer).to_stdout
       end
 
       it 'puts every word when input noting' do
-        tree.add('string')
-        tree.add('strw')
-        tree.add('str')
-        tree.add('stm')
-        tree.delete('string')
-        tree.add('string')
+        @tree.delete('string')
+        @tree.add('string')
         answer = "strw\nstr\nstm\nstring\n"
 
-        expect { tree.list('') }.to output(answer).to_stdout
+        expect { @tree.list('') }.to output(answer).to_stdout
       end
 
       it 'puts nothing when input value is not in tree' do
-        tree.add('string')
-        tree.add('strw')
-        tree.add('str')
-        tree.add('stm')
-        tree.delete('string')
-        tree.add('string')
+        @tree.delete('string')
+        @tree.add('string')
         answer = ''
 
-        expect { tree.list('mm') }.to output(answer).to_stdout
+        expect { @tree.list('mm') }.to output(answer).to_stdout
       end
     end
   end
 end
+
+

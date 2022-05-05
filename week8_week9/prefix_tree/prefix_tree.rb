@@ -156,21 +156,4 @@ class PrefixTree
   end
 end
 
-#  tree = PrefixTree.new
 
-# tree.add('string')
-# tree.add('strw')
-# tree.add('str')
-# tree.add('stm')
-# tree.delete('string')
-# tree.add('string')
-# tree.add('mmmd')
-# tree.add('dffd')
-# tree.delete('mmmd')
-# tree.delete('dd')
-# tree.add('dd')
-
-#  tree.fill_csv
-
-# tree.list('')
-# tree.list('str')
