@@ -1,5 +1,7 @@
 # CSV file reader and writer
 
+$LOAD_PATH << '../../lib'
+
 require'../prefix_tree'
 
 class CsvController

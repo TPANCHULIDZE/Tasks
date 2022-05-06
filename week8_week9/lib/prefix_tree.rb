@@ -1,5 +1,5 @@
 # create prefix tree
-
+$LOAD_PATH << '../lib'
 require 'prefix_tree/node'
 
 

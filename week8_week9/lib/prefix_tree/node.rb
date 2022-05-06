@@ -1,6 +1,8 @@
 # create node class
 
-class PrefixTree::Node
+$LOAD_PATH << '../../lib'
+
+class Node
   attr_reader :value, :number_size, :children, :is_end_point, :strings_indexs
 
   @@nodes = []
