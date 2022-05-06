@@ -1,6 +1,6 @@
 # create node class
 
-class Node
+class PrefixTree::Node
   attr_reader :value, :number_size, :children, :is_end_point, :strings_indexs
 
   @@nodes = []

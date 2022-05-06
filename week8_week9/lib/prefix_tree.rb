@@ -1,7 +1,7 @@
 # create prefix tree
 
-require_relative 'node'
-require 'csv'
+require 'prefix_tree/node'
+
 
 WORD_EXIST = 'This word is already exist in prefix tree'
 ADD_NEW_WORD = 'Add new word in prefix tree'

@@ -1,6 +1,6 @@
 # CSV file reader and writer
 
-require_relative 'prefix_tree'
+require'../prefix_tree'
 
 class CsvController
   def initialize(tree = PrefixTree.new)
