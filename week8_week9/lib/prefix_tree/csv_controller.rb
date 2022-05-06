@@ -30,15 +30,3 @@ class CsvController
   end
 end
 
-tree = PrefixTree.new
-
-tree.add('dsbh')
-tree.add('mmss')
-tree.delete('dsbh')
-tree.add('string')
-
-csv_controller = CsvController.new(tree)
-
-csv_controller.read_csv
-csv_controller.fill_csv
-
